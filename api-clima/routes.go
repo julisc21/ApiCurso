@@ -35,9 +35,9 @@ var routes = Routes{
 		Index,
 	},
 	Route{
-		"Country",
+		"City",
 		"GET",
-		"/{country}/{state}/{city}",
-		Country,
+		"/{city}",
+		City,
 	},
 }

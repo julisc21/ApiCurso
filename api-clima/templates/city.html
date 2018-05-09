@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{{.Name}}</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="http://getbootstrap.com/examples/sticky-footer/sticky-footer.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+		<div class="page-header">
+			<h1>Clima en {{.Name}}</h1>
+		</div>
+		<p class="lead">{{range .Weather}}<img src="http://openweathermap.org/img/w/{{.Icon}}.png" alt="weather icon"> {{.Description}} {{end}}</p>
+		<table class="table table-hover table-condensed" data-toggle="table" data-cache="false">
+			<thread>
+			<tr>
+				<th>Actual</th>
+				<th>Máxima</th>
+				<th>Mínima</th>
+			</tr>
+			</thread>
+			<tr><td>{{.Main.Temp}} ºC</td><td>{{.Main.TempMax}} ºC</td><td>{{.Main.TempMin}} ºC</td></tr>
+		</table>
+		</div>
+		<footer class="footer">
+        	<div class="container">
+				<p class="text-muted">API-Clima - Curso Go - Facultad de Ciencias de la Administración UNER --- Arlettaz Gastón - Santa Cruz Julian - Schulz Marianela</p>
+			</div>
+    	</footer>
+	</body>
+</html>

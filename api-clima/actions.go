@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 
@@ -12,31 +13,41 @@ import (
 var OWM_API_KEY string = "8ea06e7900d3dc2de985e8d8a400fce0"
 
 func Index(writerResponse http.ResponseWriter, request *http.Request) {
-	fmt.Fprintf(writerResponse, "Bienvenido a la API de Clima.")
+	tmpl, err := template.ParseFiles("templates/index.html")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	err = tmpl.Execute(writerResponse, "Bienvenido a la API de Clima.")
+	if err != nil {
+		fmt.Fprintf(writerResponse, "No se pudo ejecutar la pagina de inicio.")
+	}
 }
 
-func Country(writerResponse http.ResponseWriter, request *http.Request) {
-	// para obtener parametros del request
+func City(writerResponse http.ResponseWriter, request *http.Request) {
+
 	parametros := mux.Vars(request)
-	country := parametros["country"]
-	state := parametros["state"]
 	city := parametros["city"]
 
-	fmt.Fprintln(writerResponse, "El pais es: "+country)
-	fmt.Fprintln(writerResponse, "La provincia/estado es: "+state)
-	fmt.Fprintln(writerResponse, "La ciudad es : "+city)
-
-	log.Println(openweathermap.ValidAPIKey(OWM_API_KEY))
+	tmpl, err := template.ParseFiles("templates/city.html")
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 	w, err := openweathermap.NewCurrent("C", "ES", OWM_API_KEY)
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	//decoder := json.NewDecoder(w.CurrentByName("Phoenix,AZ"))
+	w.CurrentByName(city)
 
-	w.CurrentByName("Phoenix")
-	http.ur
-	fmt.Fprintln(writerResponse, w)
+	if w.Name == "" {
+		fmt.Fprintf(writerResponse, "Ciudad invalida. Intente nuevamente.")
+	} else {
+		err = tmpl.Execute(writerResponse, w)
+		if err != nil {
+			log.Fatalln(err)
+		}
+	}
 
 }
