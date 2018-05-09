@@ -1,4 +1,6 @@
 # API-Clima para Curso de GO
+## Descripción
+Esta API puede mostrar en tiempo real las condiciones climaticas (temperatura actual, maxima, minima en grados Centigrados) de una determinada ciudad.
 ## Antes de Comenzar
 - Instalar API OpenWeatherMap con "go get github.com/briandowns/openweathermap"
 
